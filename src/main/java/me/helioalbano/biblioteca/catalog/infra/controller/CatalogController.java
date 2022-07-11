@@ -1,18 +1,19 @@
 package me.helioalbano.biblioteca.catalog.infra.controller;
 
-import me.helioalbano.biblioteca.catalog.infra.controller.dto.CreateBookRequest;
-import me.helioalbano.biblioteca.catalog.usecase.addnewbook.AddNewBook;
-import me.helioalbano.biblioteca.catalog.usecase.addnewbook.dto.AddNewBookInput;
+import java.net.URI;
+
+import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.net.URI;
+import me.helioalbano.biblioteca.catalog.infra.controller.dto.CreateBookRequest;
+import me.helioalbano.biblioteca.catalog.usecase.addnewbook.AddNewBook;
+import me.helioalbano.biblioteca.catalog.usecase.addnewbook.dto.AddNewBookInput;
 
 @RestController
 @RequestMapping("catalog")
