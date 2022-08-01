@@ -1,22 +1,22 @@
-package me.helioalbano.biblioteca.catalog.usecase.addnewbook;
+package me.helioalbano.biblioteca.catalog.usecase.book.create;
 
 import me.helioalbano.biblioteca.catalog.domain.entity.Book;
 import me.helioalbano.biblioteca.catalog.domain.repository.BookRepository;
-import me.helioalbano.biblioteca.catalog.usecase.addnewbook.dto.AddNewBookInput;
-import me.helioalbano.biblioteca.catalog.usecase.addnewbook.impl.AddNewBookImpl;
+import me.helioalbano.biblioteca.catalog.usecase.book.create.dto.CreateBookInput;
+import me.helioalbano.biblioteca.catalog.usecase.book.create.impl.CreateImpl;
 import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.*;
 
-public class AddNewBookTest {
+public class CreateTest {
     @Test
     void addAnInexistentBook() {
         BookRepository repository = mock(BookRepository.class);
-        var input = new AddNewBookInput();
+        var input = new CreateBookInput();
         input.setTitle("O Programador Pragmático");
 
         when(repository.create(any(Book.class))).thenReturn(mock(Book.class));
-        new AddNewBookImpl(repository).execute(input);
+        new CreateImpl(repository).execute(input);
 
         verify(repository, times(1)).create(any(Book.class));
     }

@@ -2,8 +2,8 @@ package me.helioalbano.biblioteca.catalog.infra.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import me.helioalbano.biblioteca.catalog.infra.controller.dto.CreateBookRequest;
-import me.helioalbano.biblioteca.catalog.usecase.addnewbook.AddNewBook;
-import me.helioalbano.biblioteca.catalog.usecase.addnewbook.dto.AddNewBookInput;
+import me.helioalbano.biblioteca.catalog.usecase.book.create.Create;
+import me.helioalbano.biblioteca.catalog.usecase.book.create.dto.CreateBookInput;
 import org.hamcrest.core.Is;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
@@ -29,21 +29,14 @@ class CatalogControllerTest {
     private ObjectMapper mapper;
 
     @MockBean
-    private AddNewBook addNewBook;
-
-    @MockBean
-    private ModelMapper modelMapper;
+    private Create create;
 
     @Test
     void createBook_success() throws Exception {
         var request = new CreateBookRequest();
         request.setTitle("O Programador Pragmático: de aprendiz a mestre");
-        var input = new AddNewBookInput();
-        input.setTitle(request.getTitle());
 
-        when(modelMapper.map(any(CreateBookRequest.class), any()))
-            .thenReturn(input);
-        when(addNewBook.execute(input)).thenReturn(10L);
+        when(create.execute(request.toUseCaseInput())).thenReturn(10L);
 
         var mockRequest = MockMvcRequestBuilders.post("/catalog/books/")
             .contentType(MediaType.APPLICATION_JSON)

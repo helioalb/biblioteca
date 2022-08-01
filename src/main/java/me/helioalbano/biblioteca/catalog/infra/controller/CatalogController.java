@@ -12,23 +12,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import me.helioalbano.biblioteca.catalog.infra.controller.dto.CreateBookRequest;
-import me.helioalbano.biblioteca.catalog.usecase.addnewbook.AddNewBook;
-import me.helioalbano.biblioteca.catalog.usecase.addnewbook.dto.AddNewBookInput;
+import me.helioalbano.biblioteca.catalog.usecase.book.create.Create;
 
 @RestController
 @RequestMapping("catalog")
 class CatalogController {
-    private final AddNewBook addNewBook;
-    private final ModelMapper modelMapper;
+    private final Create create;
 
-    public CatalogController(AddNewBook addNewBook, ModelMapper modelMapper) {
-        this.addNewBook = addNewBook;
-        this.modelMapper = modelMapper;
+    public CatalogController(Create create) {
+        this.create = create;
     }
 
     @PostMapping(path = "books")
     public ResponseEntity<Void> createBook(@Valid @RequestBody CreateBookRequest book) {
-        var bookId = addNewBook.execute(book.toUseCaseInput());
+        var bookId = create.execute(book.toUseCaseInput());
         var location = URI.create("/catalog/books/" + bookId);
         return ResponseEntity.created(location).build();
     }

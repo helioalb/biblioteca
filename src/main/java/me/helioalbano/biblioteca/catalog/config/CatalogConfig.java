@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Configuration;
 
 import me.helioalbano.biblioteca.catalog.domain.repository.BookRepository;
 import me.helioalbano.biblioteca.catalog.infra.repository.BookRepositoryPostgres;
-import me.helioalbano.biblioteca.catalog.usecase.addnewbook.AddNewBook;
-import me.helioalbano.biblioteca.catalog.usecase.addnewbook.impl.AddNewBookImpl;
+import me.helioalbano.biblioteca.catalog.usecase.book.create.Create;
+import me.helioalbano.biblioteca.catalog.usecase.book.create.impl.CreateImpl;
 
 @Configuration
 public class CatalogConfig {
@@ -17,7 +17,7 @@ public class CatalogConfig {
     }
 
     @Bean
-    public AddNewBook addNewBook() {
-        return new AddNewBookImpl(bookRepository());
+    public Create addNewBook() {
+        return new CreateImpl(bookRepository());
     }
 }
