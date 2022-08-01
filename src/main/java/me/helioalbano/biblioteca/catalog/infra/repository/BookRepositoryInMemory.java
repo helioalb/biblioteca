@@ -7,14 +7,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BookRepositoryInMemory implements BookRepository {
-    private Map<String, Book> books;
+    private final Map<String, Book> books;
 
     public BookRepositoryInMemory() {
         books = new HashMap<>();
     }
 
     @Override
-    public void create(Book book) {
+    public Book create(Book book) {
         books.put(book.getTitle().toString(), book);
+        return book;
     }
 }

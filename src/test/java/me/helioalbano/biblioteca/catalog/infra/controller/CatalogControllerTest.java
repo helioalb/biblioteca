@@ -40,8 +40,10 @@ class CatalogControllerTest {
         request.setTitle("O Programador Pragmático: de aprendiz a mestre");
         var input = new AddNewBookInput();
         input.setTitle(request.getTitle());
+
         when(modelMapper.map(any(CreateBookRequest.class), any()))
             .thenReturn(input);
+        when(addNewBook.execute(input)).thenReturn(10L);
 
         var mockRequest = MockMvcRequestBuilders.post("/catalog/books/")
             .contentType(MediaType.APPLICATION_JSON)
@@ -50,7 +52,7 @@ class CatalogControllerTest {
 
         mockMvc.perform(mockRequest)
             .andExpect(status().isCreated())
-            .andExpect(header().string("Location", "/catalog/books/TODO"));
+            .andExpect(header().string("Location", "/catalog/books/10"));
     }
 
     @Test

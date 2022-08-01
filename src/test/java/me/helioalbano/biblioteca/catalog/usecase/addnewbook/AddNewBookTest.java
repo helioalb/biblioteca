@@ -14,7 +14,10 @@ public class AddNewBookTest {
         BookRepository repository = mock(BookRepository.class);
         var input = new AddNewBookInput();
         input.setTitle("O Programador Pragmático");
+
+        when(repository.create(any(Book.class))).thenReturn(mock(Book.class));
         new AddNewBookImpl(repository).execute(input);
+
         verify(repository, times(1)).create(any(Book.class));
     }
 }

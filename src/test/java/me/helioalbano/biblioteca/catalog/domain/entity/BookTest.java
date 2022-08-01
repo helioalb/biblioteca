@@ -12,13 +12,13 @@ public class BookTest {
     @Test
     void emptyTitle() {
         Exception e = assertThrows(IllegalArgumentException.class,
-            () -> new Book(null));
+            () -> new Book(1L, null));
         assertEquals("book.title.null", e.getMessage());
     }
 
     @Test
     void nonEmptyTitle() {
-        var book = new Book(new Title("O Programador Pragmático"));
+        var book = new Book(1L, new Title("O Programador Pragmático"));
         assertEquals("O Programador Pragmático", book.getTitle().toString());
     }
 }

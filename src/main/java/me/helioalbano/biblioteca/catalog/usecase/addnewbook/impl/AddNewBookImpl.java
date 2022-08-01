@@ -8,15 +8,15 @@ import me.helioalbano.biblioteca.catalog.usecase.addnewbook.dto.AddNewBookInput;
 
 public class AddNewBookImpl implements AddNewBook {
 
-    private BookRepository repository;
+    private final BookRepository repository;
 
     public AddNewBookImpl(final BookRepository repository) {
         this.repository = repository;
     }
 
-    public void execute(AddNewBookInput addNewBookInput) {
-        Book book = new Book(new Title(addNewBookInput.getTitle()));
-        repository.create(book);
+    public Long execute(AddNewBookInput addNewBookInput) {
+        Book book = new Book(null, new Title(addNewBookInput.getTitle()));
+        return repository.create(book).getId();
     }
 
 }

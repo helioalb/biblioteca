@@ -18,8 +18,8 @@ import me.helioalbano.biblioteca.catalog.usecase.addnewbook.dto.AddNewBookInput;
 @RestController
 @RequestMapping("catalog")
 class CatalogController {
-    private AddNewBook addNewBook;
-    private ModelMapper modelMapper;
+    private final AddNewBook addNewBook;
+    private final ModelMapper modelMapper;
 
     public CatalogController(AddNewBook addNewBook, ModelMapper modelMapper) {
         this.addNewBook = addNewBook;
@@ -28,9 +28,8 @@ class CatalogController {
 
     @PostMapping(path = "books")
     public ResponseEntity<Void> createBook(@Valid @RequestBody CreateBookRequest book) {
-        var input = modelMapper.map(book, AddNewBookInput.class);
-        addNewBook.execute(input);
-        var location = URI.create("/catalog/books/TODO");
+        var bookId = addNewBook.execute(book.toUseCaseInput());
+        var location = URI.create("/catalog/books/" + bookId);
         return ResponseEntity.created(location).build();
     }
 }
