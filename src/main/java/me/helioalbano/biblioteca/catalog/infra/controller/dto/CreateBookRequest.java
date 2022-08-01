@@ -1,7 +1,7 @@
 package me.helioalbano.biblioteca.catalog.infra.controller.dto;
 
 import lombok.Data;
-import me.helioalbano.biblioteca.catalog.usecase.book.create.dto.CreateBookInput;
+import me.helioalbano.biblioteca.catalog.usecase.dto.CreateBookInput;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

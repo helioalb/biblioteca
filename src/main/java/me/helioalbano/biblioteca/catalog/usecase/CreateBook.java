@@ -1,16 +1,15 @@
-package me.helioalbano.biblioteca.catalog.usecase.book.create.impl;
+package me.helioalbano.biblioteca.catalog.usecase;
 
 import me.helioalbano.biblioteca.catalog.domain.entity.Book;
 import me.helioalbano.biblioteca.catalog.domain.repository.BookRepository;
 import me.helioalbano.biblioteca.catalog.domain.valueobject.Title;
-import me.helioalbano.biblioteca.catalog.usecase.book.create.Create;
-import me.helioalbano.biblioteca.catalog.usecase.book.create.dto.CreateBookInput;
+import me.helioalbano.biblioteca.catalog.usecase.dto.CreateBookInput;
 
-public class CreateImpl implements Create {
+public class CreateBook {
 
     private final BookRepository repository;
 
-    public CreateImpl(final BookRepository repository) {
+    public CreateBook(final BookRepository repository) {
         this.repository = repository;
     }
 

@@ -2,11 +2,9 @@ package me.helioalbano.biblioteca.catalog.infra.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import me.helioalbano.biblioteca.catalog.infra.controller.dto.CreateBookRequest;
-import me.helioalbano.biblioteca.catalog.usecase.book.create.Create;
-import me.helioalbano.biblioteca.catalog.usecase.book.create.dto.CreateBookInput;
+import me.helioalbano.biblioteca.catalog.usecase.CreateBook;
 import org.hamcrest.core.Is;
 import org.junit.jupiter.api.Test;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -19,8 +17,8 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
-@WebMvcTest(CatalogController.class)
-class CatalogControllerTest {
+@WebMvcTest(BookController.class)
+class BookControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -29,14 +27,14 @@ class CatalogControllerTest {
     private ObjectMapper mapper;
 
     @MockBean
-    private Create create;
+    private CreateBook createBook;
 
     @Test
     void createBook_success() throws Exception {
         var request = new CreateBookRequest();
         request.setTitle("O Programador Pragmático: de aprendiz a mestre");
 
-        when(create.execute(request.toUseCaseInput())).thenReturn(10L);
+        when(createBook.execute(request.toUseCaseInput())).thenReturn(10L);
 
         var mockRequest = MockMvcRequestBuilders.post("/catalog/books/")
             .contentType(MediaType.APPLICATION_JSON)

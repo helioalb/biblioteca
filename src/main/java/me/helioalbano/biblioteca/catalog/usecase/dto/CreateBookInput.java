@@ -1,4 +1,4 @@
-package me.helioalbano.biblioteca.catalog.usecase.book.create.dto;
+package me.helioalbano.biblioteca.catalog.usecase.dto;
 
 import lombok.Data;
 
