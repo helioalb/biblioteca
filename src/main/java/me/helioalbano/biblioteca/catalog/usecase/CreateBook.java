@@ -14,7 +14,9 @@ public class CreateBook {
     }
 
     public Long execute(CreateBookInput createBookInput) {
-        Book book = new Book(null, new Title(createBookInput.getTitle()));
+        var title = new Title(createBookInput.getTitle());
+        Book book = new Book(null, title);
+
         return repository.create(book).getId();
     }
 

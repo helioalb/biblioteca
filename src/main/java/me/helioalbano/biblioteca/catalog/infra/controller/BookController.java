@@ -23,7 +23,7 @@ class BookController {
     }
 
     @PostMapping(path = "books")
-    public ResponseEntity<Void> createBook(@Valid @RequestBody CreateBookRequest book) {
+    public ResponseEntity<Void> create(@Valid @RequestBody CreateBookRequest book) {
         var bookId = createBook.execute(book.toUseCaseInput());
         var location = URI.create("/catalog/books/" + bookId);
         return ResponseEntity.created(location).build();
