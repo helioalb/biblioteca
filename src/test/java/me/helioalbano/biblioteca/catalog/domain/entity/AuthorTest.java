@@ -1,23 +1,24 @@
 package me.helioalbano.biblioteca.catalog.domain.entity;
 
-import me.helioalbano.biblioteca.catalog.domain.valueobject.Name;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import me.helioalbano.biblioteca.catalog.domain.exceptions.InvalidAuthorNameException;
 
 class AuthorTest {
 
     @Test
-    void constructorWithName_shouldBeOk() {
-        var name = new Name("Gayle Laakmann McDowell");
-        var author = new Author(null, name);
+    void create_shouldBeOk() {
+        var author = Author.create("Gayle Laakmann McDowell");
         assertEquals("Gayle Laakmann McDowell", author.getName().toString());
     }
 
     @Test
-    void constructorWithEmptyName_shouldThrowAnException() {
+    void createWithEmptyName_shouldThrowAnException() {
         Exception e =
-            assertThrows(IllegalArgumentException.class, () -> new Author(null, null));
-        assertEquals("author.name.null", e.getMessage());
+            assertThrows(InvalidAuthorNameException.class, () -> Author.load(null, null));
+        assertEquals("name.null", e.getMessage());
     }
 }

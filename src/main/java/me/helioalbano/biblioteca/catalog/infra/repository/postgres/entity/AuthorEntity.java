@@ -1,29 +1,22 @@
 package me.helioalbano.biblioteca.catalog.infra.repository.postgres.entity;
 
-import java.time.LocalDateTime;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import lombok.Data;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
-@Entity(name = "Book")
-@Table(name = "books")
+@Entity(name = "Author")
+@Table(name = "authors")
 @Data
-public class BookEntity {
+public class AuthorEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "title", nullable = false, length = 50)
-    private String title;
+    @Column(name = "name", nullable = false, length = 150)
+    private String name;
 
     @CreationTimestamp
     @Column(name = "created_at")

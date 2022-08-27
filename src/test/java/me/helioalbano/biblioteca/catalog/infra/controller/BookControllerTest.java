@@ -1,8 +1,10 @@
 package me.helioalbano.biblioteca.catalog.infra.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import me.helioalbano.biblioteca.catalog.infra.controller.dto.CreateBookRequest;
-import me.helioalbano.biblioteca.catalog.usecase.CreateBook;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import org.hamcrest.core.Is;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +14,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import me.helioalbano.biblioteca.catalog.infra.controller.dto.CreateBookRequest;
+import me.helioalbano.biblioteca.catalog.usecase.CreateBook;
 
 @WebMvcTest(BookController.class)
 class BookControllerTest {

@@ -13,8 +13,6 @@ public class CreateBookRequest {
     private String title;
 
     public CreateBookInput toUseCaseInput() {
-        var useCaseInput = new CreateBookInput();
-        useCaseInput.setTitle(title);
-        return  useCaseInput;
+        return new CreateBookInput(title);
     }
 }

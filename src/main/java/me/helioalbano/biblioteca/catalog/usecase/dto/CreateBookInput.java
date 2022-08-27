@@ -1,8 +1,12 @@
 package me.helioalbano.biblioteca.catalog.usecase.dto;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class CreateBookInput {
-    private String title;
+    private final String title;
+
+    public CreateBookInput(final String title) {
+        this.title = title;
+    }
 }

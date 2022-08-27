@@ -5,8 +5,6 @@ import me.helioalbano.biblioteca.catalog.domain.exceptions.InvalidAuthorNameExce
 public class Name {
 
     private String[] fullName;
-    private String firstName;
-    private String lastName;
 
     public Name(final String fullName) {
         this.fullName = split(fullName);
