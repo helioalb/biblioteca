@@ -5,20 +5,21 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import me.helioalbano.biblioteca.catalog.domain.valueobject.Title;
+import me.helioalbano.biblioteca.catalog.domain.exceptions.TitleFormatException;
 
 public class BookTest {
 
     @Test
     void emptyTitle() {
-        Exception e = assertThrows(IllegalArgumentException.class,
-            () -> new Book(1L, null));
-        assertEquals("book.title.null", e.getMessage());
+        Exception e = assertThrows(TitleFormatException.class,
+            () -> Book.load(1L, null));
+        assertEquals("title.null", e.getMessage());
     }
 
     @Test
     void nonEmptyTitle() {
-        var book = new Book(1L, new Title("O Programador Pragmático"));
+        var book = Book.load(1L, "O Programador Pragmático");
+
         assertEquals("O Programador Pragmático", book.getTitle().toString());
     }
 }

@@ -6,22 +6,22 @@ public class Title {
     private String value;
 
     public Title(String title) {
-        this.value = title;
-        this.validate();
+        this.setTitle(title);
     }
 
-    private void validate() {
-        if (this.value == null) {
+    private void setTitle(String title) {
+        if (title == null) {
             throw new TitleFormatException("title.null");
         }
 
-        if (this.value.length() > 50) {
+        if (title.length() > 50) {
             throw new TitleFormatException("title.greather.than.50");
         }
 
-        if (this.value.length() == 0) {
+        if (title.length() == 0) {
             throw new TitleFormatException("title.length.0");
         }
+        this.value = title;
     }
 
     @Override

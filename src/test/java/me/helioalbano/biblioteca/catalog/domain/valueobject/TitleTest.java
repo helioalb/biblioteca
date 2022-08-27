@@ -10,7 +10,7 @@ import me.helioalbano.biblioteca.catalog.domain.exceptions.TitleFormatException;
 public class TitleTest {
     @Test
     void testPrintOfTitle() {
-        Title title = new Title("Implementing Domain-Driven Design");
+        var title = new Title("Implementing Domain-Driven Design");
         assertEquals("Implementing Domain-Driven Design", title.toString());
     }
     @Test
