@@ -28,7 +28,7 @@ class NameTest {
     @Test
     void singleName_shouldThrowException() {
         Exception e = assertThrows(InvalidAuthorNameException.class, () -> new Name("Zé"));
-        assertEquals("name.length.less.than.two", e.getMessage());
+        assertEquals("name.length.less.than.two.parts", e.getMessage());
     }
 
     @Test

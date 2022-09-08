@@ -15,7 +15,7 @@ public class Name {
 
         var splitName = name.split(" ");
         if (splitName.length < 2) {
-            throw new InvalidAuthorNameException("name.length.less.than.two");
+            throw new InvalidAuthorNameException("name.length.less.than.two.parts");
         }
         return splitName;
     }

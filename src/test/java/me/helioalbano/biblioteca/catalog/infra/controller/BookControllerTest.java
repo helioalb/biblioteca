@@ -1,5 +1,6 @@
 package me.helioalbano.biblioteca.catalog.infra.controller;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -36,7 +37,7 @@ class BookControllerTest {
         var request = new CreateBookRequest();
         request.setTitle("O Programador Pragmático: de aprendiz a mestre");
 
-        when(createBook.execute(request.toUseCaseInput())).thenReturn(10L);
+        when(createBook.execute(any())).thenReturn(10L);
 
         var mockRequest = MockMvcRequestBuilders.post("/catalog/books/")
             .contentType(MediaType.APPLICATION_JSON)
