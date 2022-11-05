@@ -1,6 +1,7 @@
 package me.helioalbano.biblioteca.catalog.domain.entity.author;
 
 import lombok.Getter;
+import org.springframework.util.Assert;
 
 @Getter
 public class Author {
@@ -27,7 +28,7 @@ public class Author {
     }
 
     private void setName(Name name) {
-        if (name == null) throw new IllegalArgumentException("author.name.null");
+        Assert.notNull(name, "author.name.null");
         this.name = name;
     }
 

@@ -1,5 +1,7 @@
 package me.helioalbano.biblioteca.catalog.domain.entity.book;
 
+import org.springframework.util.Assert;
+
 public class Book {
 
     private final Long id;
@@ -24,9 +26,7 @@ public class Book {
     }
 
     private void setTitle(Title title) {
-        if (title == null) {
-            throw new IllegalArgumentException("book.title.null");
-        }
+        Assert.notNull(title, "book.title.null");
         this.title = title;
     }
 
