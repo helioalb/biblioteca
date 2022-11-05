@@ -1,5 +1,6 @@
-package me.helioalbano.biblioteca.catalog.domain.valueobject;
+package me.helioalbano.biblioteca.catalog.domain.entity.book;
 
+import me.helioalbano.biblioteca.catalog.domain.entity.book.Title;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

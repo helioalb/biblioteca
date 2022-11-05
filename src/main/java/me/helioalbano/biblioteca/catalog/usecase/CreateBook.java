@@ -1,6 +1,6 @@
 package me.helioalbano.biblioteca.catalog.usecase;
 
-import me.helioalbano.biblioteca.catalog.domain.entity.Book;
+import me.helioalbano.biblioteca.catalog.domain.entity.book.Book;
 import me.helioalbano.biblioteca.catalog.domain.repository.BookRepository;
 import me.helioalbano.biblioteca.catalog.usecase.dto.CreateBookInput;
 

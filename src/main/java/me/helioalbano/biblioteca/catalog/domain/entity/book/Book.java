@@ -1,6 +1,4 @@
-package me.helioalbano.biblioteca.catalog.domain.entity;
-
-import me.helioalbano.biblioteca.catalog.domain.valueobject.Title;
+package me.helioalbano.biblioteca.catalog.domain.entity.book;
 
 public class Book {
 

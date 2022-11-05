@@ -1,6 +1,6 @@
 package me.helioalbano.biblioteca.catalog.usecase;
 
-import me.helioalbano.biblioteca.catalog.domain.entity.Author;
+import me.helioalbano.biblioteca.catalog.domain.entity.author.Author;
 import me.helioalbano.biblioteca.catalog.domain.repository.AuthorRepository;
 import me.helioalbano.biblioteca.catalog.usecase.dto.CreateAuthorInput;
 

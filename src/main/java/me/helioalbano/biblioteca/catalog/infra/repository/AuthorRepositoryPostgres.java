@@ -3,7 +3,7 @@ package me.helioalbano.biblioteca.catalog.infra.repository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import me.helioalbano.biblioteca.catalog.domain.entity.Author;
+import me.helioalbano.biblioteca.catalog.domain.entity.author.Author;
 import me.helioalbano.biblioteca.catalog.domain.repository.AuthorRepository;
 import me.helioalbano.biblioteca.catalog.infra.repository.postgres.AuthorRepositoryJPA;
 import me.helioalbano.biblioteca.catalog.infra.repository.postgres.entity.AuthorEntity;
