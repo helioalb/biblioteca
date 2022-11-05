@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import me.helioalbano.biblioteca.catalog.domain.exceptions.InvalidAuthorNameException;
-
 class AuthorTest {
 
     @Test
@@ -17,8 +15,8 @@ class AuthorTest {
 
     @Test
     void createWithEmptyName_shouldThrowAnException() {
-        Exception e =
-            assertThrows(InvalidAuthorNameException.class, () -> Author.load(null, null));
+        Exception e = assertThrows(IllegalArgumentException.class,
+                                   () -> Author.load(null, null));
         assertEquals("name.null", e.getMessage());
     }
 }

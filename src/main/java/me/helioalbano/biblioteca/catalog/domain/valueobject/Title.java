@@ -1,6 +1,6 @@
 package me.helioalbano.biblioteca.catalog.domain.valueobject;
 
-import me.helioalbano.biblioteca.catalog.domain.exceptions.TitleFormatException;
+import org.springframework.util.Assert;
 
 public class Title {
     private String value;
@@ -10,17 +10,9 @@ public class Title {
     }
 
     private void setTitle(String title) {
-        if (title == null) {
-            throw new TitleFormatException("title.null");
-        }
-
-        if (title.length() > 50) {
-            throw new TitleFormatException("title.greather.than.50");
-        }
-
-        if (title.length() == 0) {
-            throw new TitleFormatException("title.length.0");
-        }
+        Assert.notNull(title, "title.null");
+        Assert.isTrue(title.length() <= 50, "title.greather.than.50");
+        Assert.isTrue(title.length() > 0, "title.length.zero");
         this.value = title;
     }
 

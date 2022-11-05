@@ -1,6 +1,6 @@
 package me.helioalbano.biblioteca.catalog.domain.valueobject;
 
-import me.helioalbano.biblioteca.catalog.domain.exceptions.InvalidAuthorNameException;
+import org.springframework.util.Assert;
 
 public class Name {
 
@@ -11,12 +11,10 @@ public class Name {
     }
 
     private String[] split(String name) {
-        if (name == null) throw new InvalidAuthorNameException("name.null");
+        Assert.notNull(name, "name.null");
 
         var splitName = name.split(" ");
-        if (splitName.length < 2) {
-            throw new InvalidAuthorNameException("name.length.less.than.two.parts");
-        }
+        Assert.isTrue(splitName.length > 1, "name.length.less.than.two.parts");
         return splitName;
     }
 
