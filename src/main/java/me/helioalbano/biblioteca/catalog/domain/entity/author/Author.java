@@ -1,7 +1,6 @@
-package me.helioalbano.biblioteca.catalog.domain.entity;
+package me.helioalbano.biblioteca.catalog.domain.entity.author;
 
 import lombok.Getter;
-import me.helioalbano.biblioteca.catalog.domain.valueobject.Name;
 
 @Getter
 public class Author {

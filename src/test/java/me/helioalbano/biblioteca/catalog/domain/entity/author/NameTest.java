@@ -1,5 +1,6 @@
-package me.helioalbano.biblioteca.catalog.domain.valueobject;
+package me.helioalbano.biblioteca.catalog.domain.entity.author;
 
+import me.helioalbano.biblioteca.catalog.domain.entity.author.Name;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

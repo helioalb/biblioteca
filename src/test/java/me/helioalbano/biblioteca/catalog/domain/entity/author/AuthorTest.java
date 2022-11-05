@@ -1,8 +1,9 @@
-package me.helioalbano.biblioteca.catalog.domain.entity;
+package me.helioalbano.biblioteca.catalog.domain.entity.author;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import me.helioalbano.biblioteca.catalog.domain.entity.author.Author;
 import org.junit.jupiter.api.Test;
 
 class AuthorTest {

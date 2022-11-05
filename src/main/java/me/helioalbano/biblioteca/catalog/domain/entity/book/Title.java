@@ -1,4 +1,4 @@
-package me.helioalbano.biblioteca.catalog.domain.valueobject;
+package me.helioalbano.biblioteca.catalog.domain.entity.book;
 
 import org.springframework.util.Assert;
 
