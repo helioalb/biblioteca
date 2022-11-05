@@ -1,11 +1,16 @@
 package me.helioalbano.biblioteca.catalog.usecase;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.Test;
+
 import me.helioalbano.biblioteca.catalog.domain.entity.Author;
 import me.helioalbano.biblioteca.catalog.domain.repository.AuthorRepository;
 import me.helioalbano.biblioteca.catalog.usecase.dto.CreateAuthorInput;
-import org.junit.jupiter.api.Test;
-
-import static org.mockito.Mockito.*;
 
 public class CreateAuthorTest {
     @Test

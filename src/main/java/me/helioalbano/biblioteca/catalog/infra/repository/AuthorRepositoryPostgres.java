@@ -8,6 +8,7 @@ import me.helioalbano.biblioteca.catalog.domain.repository.AuthorRepository;
 import me.helioalbano.biblioteca.catalog.infra.repository.postgres.AuthorRepositoryJPA;
 import me.helioalbano.biblioteca.catalog.infra.repository.postgres.entity.AuthorEntity;
 
+
 public class AuthorRepositoryPostgres implements AuthorRepository {
 
     @Autowired

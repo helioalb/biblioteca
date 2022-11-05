@@ -1,6 +1,5 @@
 package me.helioalbano.biblioteca.catalog.domain.valueobject;
 
-import me.helioalbano.biblioteca.catalog.domain.exceptions.InvalidAuthorNameException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,13 +26,15 @@ class NameTest {
 
     @Test
     void singleName_shouldThrowException() {
-        Exception e = assertThrows(InvalidAuthorNameException.class, () -> new Name("Zé"));
+        Exception e = assertThrows(IllegalArgumentException.class,
+                                   () -> new Name("Zé"));
         assertEquals("name.length.less.than.two.parts", e.getMessage());
     }
 
     @Test
     void nullName_shouldThrowException() {
-        Exception e = assertThrows(InvalidAuthorNameException.class, () -> new Name(null));
+        Exception e = assertThrows(IllegalArgumentException.class,
+                                   () -> new Name(null));
         assertEquals("name.null", e.getMessage());
     }
 }

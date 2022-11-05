@@ -1,11 +1,9 @@
 package me.helioalbano.biblioteca.catalog.domain.valueobject;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import org.junit.jupiter.api.Test;
 
-import me.helioalbano.biblioteca.catalog.domain.exceptions.TitleFormatException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TitleTest {
     @Test
@@ -15,21 +13,24 @@ public class TitleTest {
     }
     @Test
     void testIfNull() {
-        Exception e = assertThrows(TitleFormatException.class, () -> new Title(null));
+        Exception e = assertThrows(IllegalArgumentException.class,
+                                   () -> new Title(null));
         assertEquals("title.null", e.getMessage());
     }
 
     @Test
     void testIfLengthIsGreaterThan50() {
-        Exception e = assertThrows(TitleFormatException.class,
-            () -> new Title("My Grandmother Asked Me to Tell You She’s Sorry. Vol II"));
+        var title = "My Grandmother Asked Me to Tell You She’s Sorry. Vol II";
+        Exception e = assertThrows(IllegalArgumentException.class,
+            () -> new Title(title));
         assertEquals("title.greather.than.50", e.getMessage());
     }
 
     @Test
     void testIfLengthIs0() {
-        Exception e = assertThrows(TitleFormatException.class, () -> new Title(""));
-        assertEquals("title.length.0", e.getMessage());
+        Exception e = assertThrows(IllegalArgumentException.class,
+                                   () -> new Title(""));
+        assertEquals("title.length.zero", e.getMessage());
     }
 
 }

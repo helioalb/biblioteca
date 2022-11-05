@@ -15,7 +15,6 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import lombok.extern.slf4j.Slf4j;
-import me.helioalbano.biblioteca.catalog.domain.exceptions.InvalidAuthorNameException;
 
 @ControllerAdvice
 @Slf4j
@@ -34,9 +33,9 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(InvalidAuthorNameException.class)
+    @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorResponse> handleInvalidAuthorNameException(
-        InvalidAuthorNameException ex) {
+        IllegalArgumentException ex) {
         log.error(ex.getMessage());
         var response = new ErrorResponse(LocalDateTime.now(),
                                          HttpStatus.BAD_REQUEST.value(),
