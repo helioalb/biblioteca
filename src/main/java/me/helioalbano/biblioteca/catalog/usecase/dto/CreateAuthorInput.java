@@ -4,10 +4,10 @@ import lombok.Getter;
 
 @Getter
 public class CreateAuthorInput {
-    private final String name;
+  private final String name;
 
-    public CreateAuthorInput(final String name) {
-        this.name = name;
-    }
+  public CreateAuthorInput(final String name) {
+    this.name = name;
+  }
 
 }

@@ -23,57 +23,57 @@ import me.helioalbano.biblioteca.catalog.usecase.CreateBook;
 @WebMvcTest(BookController.class)
 class BookControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+  @Autowired
+  private MockMvc mockMvc;
 
-    @Autowired
-    private ObjectMapper mapper;
+  @Autowired
+  private ObjectMapper mapper;
 
-    @MockBean
-    private CreateBook createBook;
+  @MockBean
+  private CreateBook createBook;
 
-    @Test
-    void createBook_success() throws Exception {
-        var request = new CreateBookRequest();
-        request.setTitle("O Programador Pragmático: de aprendiz a mestre");
+  @Test
+  void createBook_success() throws Exception {
+    var request = new CreateBookRequest();
+    request.setTitle("O Programador Pragmático: de aprendiz a mestre");
 
-        when(createBook.execute(any())).thenReturn(10L);
+    when(createBook.execute(any())).thenReturn(10L);
 
-        var mockRequest = MockMvcRequestBuilders.post("/catalog/books/")
-            .contentType(MediaType.APPLICATION_JSON)
-            .accept(MediaType.APPLICATION_JSON)
-            .content(mapper.writeValueAsString(request));
+    var mockRequest = MockMvcRequestBuilders.post("/catalog/books/")
+        .contentType(MediaType.APPLICATION_JSON)
+        .accept(MediaType.APPLICATION_JSON)
+        .content(mapper.writeValueAsString(request));
 
-        mockMvc.perform(mockRequest)
-            .andExpect(status().isCreated())
-            .andExpect(header().string("Location", "/catalog/books/10"));
-    }
+    mockMvc.perform(mockRequest)
+        .andExpect(status().isCreated())
+        .andExpect(header().string("Location", "/catalog/books/10"));
+  }
 
-    @Test
-    void createBook_emptyTitle_error() throws Exception {
-        var request = new CreateBookRequest();
-        request.setTitle(null);
-        var mockRequest = MockMvcRequestBuilders.post("/catalog/books/")
-            .contentType(MediaType.APPLICATION_JSON)
-            .accept(MediaType.APPLICATION_JSON)
-            .content(mapper.writeValueAsString(request));
+  @Test
+  void createBook_emptyTitle_error() throws Exception {
+    var request = new CreateBookRequest();
+    request.setTitle(null);
+    var mockRequest = MockMvcRequestBuilders.post("/catalog/books/")
+        .contentType(MediaType.APPLICATION_JSON)
+        .accept(MediaType.APPLICATION_JSON)
+        .content(mapper.writeValueAsString(request));
 
-        mockMvc.perform(mockRequest)
-            .andExpect(status().isBadRequest())
-            .andExpect(jsonPath("$.title", Is.is("The book title must be informed")));
-    }
+    mockMvc.perform(mockRequest)
+        .andExpect(status().isBadRequest())
+        .andExpect(jsonPath("$.title", Is.is("The book title must be informed")));
+  }
 
-    @Test
-    void createBook_titleLengthLessThan3_error() throws Exception {
-        var request = new CreateBookRequest();
-        request.setTitle("Oi");
-        var mockRequest = MockMvcRequestBuilders.post("/catalog/books/")
-            .contentType(MediaType.APPLICATION_JSON)
-            .accept(MediaType.APPLICATION_JSON)
-            .content(mapper.writeValueAsString(request));
+  @Test
+  void createBook_titleLengthLessThan3_error() throws Exception {
+    var request = new CreateBookRequest();
+    request.setTitle("Oi");
+    var mockRequest = MockMvcRequestBuilders.post("/catalog/books/")
+        .contentType(MediaType.APPLICATION_JSON)
+        .accept(MediaType.APPLICATION_JSON)
+        .content(mapper.writeValueAsString(request));
 
-        mockMvc.perform(mockRequest)
-            .andExpect(status().isBadRequest())
-            .andExpect(jsonPath("$.title", Is.is("size must be between 3 and 50")));
-    }
+    mockMvc.perform(mockRequest)
+        .andExpect(status().isBadRequest())
+        .andExpect(jsonPath("$.title", Is.is("size must be between 3 and 50")));
+  }
 }

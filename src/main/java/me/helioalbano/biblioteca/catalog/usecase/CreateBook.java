@@ -6,15 +6,15 @@ import me.helioalbano.biblioteca.catalog.usecase.dto.CreateBookInput;
 
 public class CreateBook {
 
-    private final BookRepository repository;
+  private final BookRepository repository;
 
-    public CreateBook(final BookRepository repository) {
-        this.repository = repository;
-    }
+  public CreateBook(final BookRepository repository) {
+    this.repository = repository;
+  }
 
-    public Long execute(CreateBookInput createBookInput) {
-        Book book = Book.create(createBookInput.getTitle());
-        return repository.create(book).getId();
-    }
+  public Long execute(CreateBookInput createBookInput) {
+    Book book = Book.create(createBookInput.getTitle());
+    return repository.create(book).getId();
+  }
 
 }

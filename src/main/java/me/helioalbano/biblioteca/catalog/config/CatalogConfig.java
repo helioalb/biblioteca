@@ -12,23 +12,23 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class CatalogConfig {
 
-    @Bean
-    public BookRepository bookRepository() {
-        return new BookRepositoryPostgres();
-    }
+  @Bean
+  public BookRepository bookRepository() {
+    return new BookRepositoryPostgres();
+  }
 
-    @Bean
-    public CreateBook createBook() {
-        return new CreateBook(bookRepository());
-    }
+  @Bean
+  public CreateBook createBook() {
+    return new CreateBook(bookRepository());
+  }
 
-    @Bean
-    public AuthorRepository authorRepository() {
-        return new AuthorRepositoryPostgres();
-    }
+  @Bean
+  public AuthorRepository authorRepository() {
+    return new AuthorRepositoryPostgres();
+  }
 
-    @Bean
-    public CreateAuthor createAuthor() {
-        return new CreateAuthor(authorRepository());
-    }
+  @Bean
+  public CreateAuthor createAuthor() {
+    return new CreateAuthor(authorRepository());
+  }
 }

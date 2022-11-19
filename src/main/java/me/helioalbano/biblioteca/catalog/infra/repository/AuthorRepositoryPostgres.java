@@ -11,16 +11,16 @@ import me.helioalbano.biblioteca.catalog.infra.repository.postgres.entity.Author
 
 public class AuthorRepositoryPostgres implements AuthorRepository {
 
-    @Autowired
-    private AuthorRepositoryJPA authorRepositoryJPA;
+  @Autowired
+  private AuthorRepositoryJPA authorRepositoryJPA;
 
-    @Autowired
-    private ModelMapper modelMapper;
+  @Autowired
+  private ModelMapper modelMapper;
 
-    @Override
-    public Author create(Author author) {
-        var authorEntity = modelMapper.map(author, AuthorEntity.class);
-        authorEntity = authorRepositoryJPA.save(authorEntity);
-        return Author.load(authorEntity.getId(), authorEntity.getName());
-    }
+  @Override
+  public Author create(Author author) {
+    var authorEntity = modelMapper.map(author, AuthorEntity.class);
+    authorEntity = authorRepositoryJPA.save(authorEntity);
+    return Author.load(authorEntity.getId(), authorEntity.getName());
+  }
 }

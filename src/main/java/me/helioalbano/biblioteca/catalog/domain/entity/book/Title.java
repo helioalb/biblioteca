@@ -1,23 +1,27 @@
 package me.helioalbano.biblioteca.catalog.domain.entity.book;
 
-import org.springframework.util.Assert;
-
 public class Title {
-    private String value;
+  private String value;
 
-    public Title(String title) {
-        this.setTitle(title);
-    }
+  public Title(String title) {
+    this.setTitle(title);
+  }
 
-    private void setTitle(String title) {
-        Assert.notNull(title, "title.null");
-        Assert.isTrue(title.length() <= 50, "title.greather.than.50");
-        Assert.isTrue(title.length() > 0, "title.length.zero");
-        this.value = title;
-    }
+  private void setTitle(String title) {
+    if (title == null)
+      throw new IllegalArgumentException("title.null");
 
-    @Override
-    public String toString() {
-        return this.value;
-    }
+    if (title.length() >= 50)
+      throw new IllegalArgumentException("title.greater.than.50");
+
+    if (title.length() <= 0)
+      throw new IllegalArgumentException("title.length.zero");
+
+    this.value = title;
+  }
+
+  @Override
+  public String toString() {
+    return this.value;
+  }
 }

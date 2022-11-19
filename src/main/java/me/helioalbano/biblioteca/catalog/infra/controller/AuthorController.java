@@ -16,19 +16,19 @@ import me.helioalbano.biblioteca.catalog.usecase.CreateAuthor;
 @RestController
 @RequestMapping("catalog")
 public class AuthorController {
-    private final CreateAuthor createAuthor;
+  private final CreateAuthor createAuthor;
 
-    public AuthorController(CreateAuthor createAuthor) {
-        this.createAuthor = createAuthor;
-    }
+  public AuthorController(CreateAuthor createAuthor) {
+    this.createAuthor = createAuthor;
+  }
 
-    @PostMapping(path = "authors")
-    public ResponseEntity<Void> create(@Valid @RequestBody CreateAuthorRequest author) {
-        var authorId = createAuthor.execute(author.toUseCaseInput());
-        return ResponseEntity.created(resourcePathTo(authorId)).build();
-    }
+  @PostMapping(path = "authors")
+  public ResponseEntity<Void> create(@Valid @RequestBody CreateAuthorRequest author) {
+    var authorId = createAuthor.execute(author.toUseCaseInput());
+    return ResponseEntity.created(resourcePathTo(authorId)).build();
+  }
 
-    private URI resourcePathTo(Long authorId) {
-        return URI.create("/catalog/authors/" + authorId);
-    }
+  private URI resourcePathTo(Long authorId) {
+    return URI.create("/catalog/authors/" + authorId);
+  }
 }
