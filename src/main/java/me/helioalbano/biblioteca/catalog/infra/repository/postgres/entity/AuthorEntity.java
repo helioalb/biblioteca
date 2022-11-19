@@ -11,18 +11,18 @@ import java.time.LocalDateTime;
 @Table(name = "authors")
 @Data
 public class AuthorEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(name = "name", nullable = false, length = 150)
-    private String name;
+  @Column(name = "name", nullable = false, length = 150)
+  private String name;
 
-    @CreationTimestamp
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+  @CreationTimestamp
+  @Column(name = "created_at")
+  private LocalDateTime createdAt;
 
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+  @UpdateTimestamp
+  @Column(name = "updated_at")
+  private LocalDateTime updatedAt;
 }

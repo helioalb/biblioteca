@@ -16,19 +16,19 @@ import me.helioalbano.biblioteca.catalog.infra.controller.dto.CreateBookRequest;
 @RestController
 @RequestMapping("catalog")
 class BookController {
-    private final CreateBook createBook;
+  private final CreateBook createBook;
 
-    public BookController(CreateBook createBook) {
-        this.createBook = createBook;
-    }
+  public BookController(CreateBook createBook) {
+    this.createBook = createBook;
+  }
 
-    @PostMapping(path = "books")
-    public ResponseEntity<Void> create(@Valid @RequestBody CreateBookRequest book) {
-        var bookId = createBook.execute(book.toUseCaseInput());
-        return ResponseEntity.created(resourcePathTo(bookId)).build();
-    }
+  @PostMapping(path = "books")
+  public ResponseEntity<Void> create(@Valid @RequestBody CreateBookRequest book) {
+    var bookId = createBook.execute(book.toUseCaseInput());
+    return ResponseEntity.created(resourcePathTo(bookId)).build();
+  }
 
-    private URI resourcePathTo(Long bookId) {
-        return URI.create("/catalog/books/" + bookId);
-    }
+  private URI resourcePathTo(Long bookId) {
+    return URI.create("/catalog/books/" + bookId);
+  }
 }

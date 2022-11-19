@@ -8,11 +8,11 @@ import javax.validation.constraints.Size;
 
 @Data
 public class CreateBookRequest {
-    @NotBlank(message = "The book title must be informed")
-    @Size(min = 3, max = 50)
-    private String title;
+  @NotBlank(message = "The book title must be informed")
+  @Size(min = 3, max = 50)
+  private String title;
 
-    public CreateBookInput toUseCaseInput() {
-        return new CreateBookInput(title);
-    }
+  public CreateBookInput toUseCaseInput() {
+    return new CreateBookInput(title);
+  }
 }
