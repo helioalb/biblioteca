@@ -5,13 +5,13 @@ public class Name {
   private final String[] fullName;
 
   public Name(final String fullName) {
+    if (fullName == null)
+      throw new IllegalArgumentException("name.null");
+
     this.fullName = split(fullName);
   }
 
   private String[] split(String name) {
-    if (name == null)
-      throw new IllegalArgumentException("name.null");
-
     var splitName = name.split(" ");
 
     if (splitName.length < 2)

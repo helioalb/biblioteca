@@ -12,7 +12,7 @@ public class CreateAuthor {
   }
 
   public Long execute(CreateAuthorInput input) {
-    var author = Author.create(input.getName());
+    var author = Author.create(input.name());
     return repository.create(author).getId();
   }
 }

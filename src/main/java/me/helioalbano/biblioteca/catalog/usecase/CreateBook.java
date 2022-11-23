@@ -13,7 +13,7 @@ public class CreateBook {
   }
 
   public Long execute(CreateBookInput createBookInput) {
-    Book book = Book.create(createBookInput.getTitle());
+    Book book = Book.create(createBookInput.title());
     return repository.create(book).getId();
   }
 

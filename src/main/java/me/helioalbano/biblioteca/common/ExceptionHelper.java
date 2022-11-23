@@ -1,16 +1,18 @@
 package me.helioalbano.biblioteca.common;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import me.helioalbano.biblioteca.catalog.usecase.exceptions.AuthorNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @ControllerAdvice
 public class ExceptionHelper extends ResponseEntityExceptionHandler {
@@ -29,4 +31,8 @@ public class ExceptionHelper extends ResponseEntityExceptionHandler {
     return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
   }
 
+  @ExceptionHandler(AuthorNotFoundException.class)
+  public ResponseEntity<Void> authorNotFound() {
+    return ResponseEntity.notFound().build();
+  }
 }
