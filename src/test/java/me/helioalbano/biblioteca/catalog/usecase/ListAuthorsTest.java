@@ -1,7 +1,7 @@
 package me.helioalbano.biblioteca.catalog.usecase;
 
-import me.helioalbano.biblioteca.catalog.domain.entity.author.Author;
-import me.helioalbano.biblioteca.catalog.domain.repository.AuthorRepository;
+import me.helioalbano.biblioteca.catalog.domain.author.Author;
+import me.helioalbano.biblioteca.catalog.repository.AuthorRepository;
 import me.helioalbano.biblioteca.catalog.usecase.dto.AuthorOutput;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

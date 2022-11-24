@@ -8,8 +8,8 @@ import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
 
-import me.helioalbano.biblioteca.catalog.domain.entity.author.Author;
-import me.helioalbano.biblioteca.catalog.domain.repository.AuthorRepository;
+import me.helioalbano.biblioteca.catalog.domain.author.Author;
+import me.helioalbano.biblioteca.catalog.repository.AuthorRepository;
 import me.helioalbano.biblioteca.catalog.usecase.dto.CreateAuthorInput;
 
 public class CreateAuthorTest {
