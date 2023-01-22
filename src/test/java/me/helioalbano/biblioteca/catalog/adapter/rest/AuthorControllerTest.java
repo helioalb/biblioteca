@@ -1,5 +1,6 @@
 package me.helioalbano.biblioteca.catalog.adapter.rest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import me.helioalbano.biblioteca.catalog.adapter.rest.dto.CreateAuthorRequest;
 import me.helioalbano.biblioteca.catalog.usecase.CreateAuthor;
@@ -13,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -22,6 +24,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(AuthorController.class)
 class AuthorControllerTest {
+
+  private static final String RESOURCE_PATH = "/catalog/authors/";
+  private static final Integer VALID_AUTHOR_ID = 10;
+  private static final Integer INVALID_AUTHOR_ID = 999;
 
   @Autowired
   private MockMvc mockMvc;
@@ -39,52 +45,69 @@ class AuthorControllerTest {
   private ListAuthors listAuthors;
 
   @Test
-  void givenValidAuthor_whenCreatingAuthor_thenReturnIsCreated() throws Exception {
+  void givenValidRequestToCreateNewAuthor_whenCreatingAuthor_thenReturnIsCreated() throws Exception {
+    var request = buildValidRequestToCreateNewAuthor();
+
+    mockMvc.perform(request)
+      .andExpect(status().isCreated())
+      .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+      .andExpect(header().string("Location", RESOURCE_PATH + VALID_AUTHOR_ID));
+  }
+
+  private MockHttpServletRequestBuilder buildValidRequestToCreateNewAuthor() throws JsonProcessingException {
+    var content = mapper.writeValueAsString(buildValidAuthor());
+
+    when(createAuthor.execute(any())).thenReturn(VALID_AUTHOR_ID.longValue());
+
+    return MockMvcRequestBuilders.post(RESOURCE_PATH)
+      .contentType(MediaType.APPLICATION_JSON)
+      .accept(MediaType.APPLICATION_JSON)
+      .content(content);
+  }
+
+  private CreateAuthorRequest buildValidAuthor() {
     var request = new CreateAuthorRequest();
     request.setName("Robert C. Martin");
 
-    when(createAuthor.execute(any())).thenReturn(10L);
-
-    var mockRequest = MockMvcRequestBuilders.post("/catalog/authors")
-      .contentType(MediaType.APPLICATION_JSON)
-      .accept(MediaType.APPLICATION_JSON)
-      .content(mapper.writeValueAsString(request));
-
-    mockMvc.perform(mockRequest)
-      .andExpect(status().isCreated())
-      .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-      .andExpect(header().string("Location", "/catalog/authors/10"));
+    return request;
   }
 
   @Test
-  void givenInValidAuthorId_whenQueryOneAuthor_thenReturnNotFound() throws Exception {
-    when(showAuthor.execute(any(Long.class))).thenThrow(AuthorNotFoundException.class);
+  void givenInvalidRequestToGetOneAuthor_whenQueryOneAuthor_thenReturnNotFound() throws Exception {
+    var request = buildInvalidRequestToGetOneAuthor();
 
-    var mockRequest = MockMvcRequestBuilders.get("/catalog/authors/100")
-      .contentType(MediaType.APPLICATION_JSON)
-      .accept(MediaType.APPLICATION_JSON);
-
-    mockMvc.perform(mockRequest)
+    mockMvc.perform(request)
       .andExpect(status().isNotFound())
       .andExpect(content().contentType(MediaType.APPLICATION_JSON));
   }
 
-  @Test
-  void givenValidAuthorId_whenQueryOneAuthor_thenReturnAnAuthor() throws Exception {
-    when(showAuthor.execute(any(Long.class))).thenReturn(buildOneAuthor());
+  private MockHttpServletRequestBuilder buildInvalidRequestToGetOneAuthor() {
+    when(showAuthor.execute(any(Long.class))).thenThrow(AuthorNotFoundException.class);
 
-    var mockRequest = MockMvcRequestBuilders.get("/catalog/authors/1")
+    return MockMvcRequestBuilders.get(RESOURCE_PATH + INVALID_AUTHOR_ID)
       .contentType(MediaType.APPLICATION_JSON)
       .accept(MediaType.APPLICATION_JSON);
+  }
 
-    mockMvc.perform(mockRequest)
+  @Test
+  void givenValidRequestToGetOneAuthor_whenQueryOneAuthor_thenReturnAnAuthor() throws Exception {
+    var request = buildValidRequestToGetOneAuthor();
+
+    mockMvc.perform(request)
       .andExpect(status().isOk())
       .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-      .andExpect(jsonPath("$.id").value(1))
-      .andExpect(jsonPath("$.name").value("Robert C. Martin"));
+      .andExpect(jsonPath("$.id").value(VALID_AUTHOR_ID));
+  }
+
+  private MockHttpServletRequestBuilder buildValidRequestToGetOneAuthor() {
+    when(showAuthor.execute(any(Long.class))).thenReturn(buildOneAuthor());
+
+    return MockMvcRequestBuilders.get(RESOURCE_PATH + VALID_AUTHOR_ID)
+      .contentType(MediaType.APPLICATION_JSON)
+      .accept(MediaType.APPLICATION_JSON);
   }
 
   private AuthorOutput buildOneAuthor() {
-    return new AuthorOutput(1L, "Robert C. Martin");
+    return new AuthorOutput(VALID_AUTHOR_ID.longValue(), "Robert C. Martin");
   }
 }

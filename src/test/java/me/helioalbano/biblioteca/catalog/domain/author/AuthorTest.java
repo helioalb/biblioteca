@@ -1,6 +1,5 @@
 package me.helioalbano.biblioteca.catalog.domain.author;
 
-import me.helioalbano.biblioteca.catalog.domain.author.Author;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
