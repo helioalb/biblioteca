@@ -4,10 +4,7 @@ import me.helioalbano.biblioteca.catalog.repository.AuthorRepository;
 import me.helioalbano.biblioteca.catalog.repository.BookRepository;
 import me.helioalbano.biblioteca.catalog.adapter.database.postgres.AuthorRepositoryPostgres;
 import me.helioalbano.biblioteca.catalog.adapter.database.postgres.BookRepositoryPostgres;
-import me.helioalbano.biblioteca.catalog.usecase.CreateAuthor;
-import me.helioalbano.biblioteca.catalog.usecase.CreateBook;
-import me.helioalbano.biblioteca.catalog.usecase.ListAuthors;
-import me.helioalbano.biblioteca.catalog.usecase.ShowAuthor;
+import me.helioalbano.biblioteca.catalog.usecase.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +25,11 @@ public class CatalogConfig {
   @Bean
   public CreateBook createBook() {
     return new CreateBook(bookRepository());
+  }
+
+  @Bean
+  public ListBooks listBooks() {
+    return new ListBooks(bookRepository());
   }
 
   @Bean

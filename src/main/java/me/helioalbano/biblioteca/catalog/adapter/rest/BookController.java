@@ -1,25 +1,26 @@
 package me.helioalbano.biblioteca.catalog.adapter.rest;
 
-import java.net.URI;
+import me.helioalbano.biblioteca.catalog.adapter.rest.dto.BookResponse;
+import me.helioalbano.biblioteca.catalog.adapter.rest.dto.CreateBookRequest;
+import me.helioalbano.biblioteca.catalog.usecase.CreateBook;
+import me.helioalbano.biblioteca.catalog.usecase.ListBooks;
+import me.helioalbano.biblioteca.catalog.usecase.dto.BookOutput;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
-import me.helioalbano.biblioteca.catalog.usecase.CreateBook;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import me.helioalbano.biblioteca.catalog.adapter.rest.dto.CreateBookRequest;
+import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("catalog")
 class BookController {
   private final CreateBook createBook;
+  private final ListBooks listBooks;
 
-  public BookController(CreateBook createBook) {
+  public BookController(CreateBook createBook, ListBooks listBooks) {
     this.createBook = createBook;
+    this.listBooks = listBooks;
   }
 
   @PostMapping(path = "books")
@@ -30,5 +31,17 @@ class BookController {
 
   private URI resourcePathTo(Long bookId) {
     return URI.create("/catalog/books/" + bookId);
+  }
+
+  @GetMapping(path = "books")
+  public List<BookResponse> index(
+    @RequestParam(name = "page-number", required = false, defaultValue = "0") Integer page,
+    @RequestParam(name = "number-of-results-per-page", required = false, defaultValue = "10") Integer numberOfResultsPerPage) {
+    var books = listBooks.execute(page, numberOfResultsPerPage);
+    return books.stream().map(this::buildBookResponse).toList();
+  }
+
+  private BookResponse buildBookResponse(BookOutput book) {
+    return new BookResponse(book.id(), book.title());
   }
 }

@@ -1,11 +1,10 @@
 package me.helioalbano.biblioteca.catalog.adapter.rest;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import me.helioalbano.biblioteca.catalog.adapter.rest.dto.CreateBookRequest;
+import me.helioalbano.biblioteca.catalog.usecase.CreateBook;
+import me.helioalbano.biblioteca.catalog.usecase.ListBooks;
+import me.helioalbano.biblioteca.catalog.usecase.dto.BookOutput;
 import org.hamcrest.core.Is;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +12,19 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Arrays;
 
-import me.helioalbano.biblioteca.catalog.adapter.rest.dto.CreateBookRequest;
-import me.helioalbano.biblioteca.catalog.usecase.CreateBook;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(BookController.class)
 class BookControllerTest {
+  private static final String RESOURCE = "/catalog/books/";
+  private static final Integer VALID_BOOK_ID = 1;
 
   @Autowired
   private MockMvc mockMvc;
@@ -31,6 +34,9 @@ class BookControllerTest {
 
   @MockBean
   private CreateBook createBook;
+
+  @MockBean
+  private ListBooks listBooks;
 
   @Test
   void createBook_success() throws Exception {
@@ -75,5 +81,27 @@ class BookControllerTest {
     mockMvc.perform(mockRequest)
         .andExpect(status().isBadRequest())
         .andExpect(jsonPath("$.title", Is.is("size must be between 3 and 50")));
+  }
+
+  @Test
+  void givenRequestToGetAllBooks_whenRequesting_thenReturnAllBooks() throws Exception {
+    var request = buildRequestToAllBooks();
+
+    mockMvc.perform(request)
+      .andExpect(status().isOk())
+      .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+      .andExpect(jsonPath("$[0].id").value(VALID_BOOK_ID));
+  }
+
+  private MockHttpServletRequestBuilder buildRequestToAllBooks() {
+    when(listBooks.execute(any(), any())).thenReturn(Arrays.asList(buildOneBook()));
+
+    return MockMvcRequestBuilders.get(RESOURCE)
+      .contentType(MediaType.APPLICATION_JSON)
+      .accept(MediaType.APPLICATION_JSON);
+  }
+
+  private BookOutput buildOneBook() {
+    return new BookOutput(VALID_BOOK_ID.longValue(), "Clean Code");
   }
 }
