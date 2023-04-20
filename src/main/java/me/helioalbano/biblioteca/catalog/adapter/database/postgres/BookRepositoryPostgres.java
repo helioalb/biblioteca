@@ -7,6 +7,8 @@ import me.helioalbano.biblioteca.catalog.adapter.database.postgres.entity.BookEn
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 public class BookRepositoryPostgres implements BookRepository {
   @Autowired
   private BookRepositoryJPA bookRepositoryJPA;
@@ -19,5 +21,10 @@ public class BookRepositoryPostgres implements BookRepository {
     var bookEntity = modelMapper.map(book, BookEntity.class);
     bookEntity = bookRepositoryJPA.save(bookEntity);
     return Book.load(bookEntity.getId(), bookEntity.getTitle());
+  }
+
+  @Override
+  public List<Book> findAll(Integer pageNumber, Integer numberOfResultsPerPage) {
+    return null;
   }
 }
