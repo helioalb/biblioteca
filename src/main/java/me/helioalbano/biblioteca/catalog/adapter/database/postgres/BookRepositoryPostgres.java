@@ -6,6 +6,7 @@ import me.helioalbano.biblioteca.catalog.repository.BookRepository;
 import me.helioalbano.biblioteca.catalog.adapter.database.postgres.entity.BookEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
@@ -25,6 +26,12 @@ public class BookRepositoryPostgres implements BookRepository {
 
   @Override
   public List<Book> findAll(Integer pageNumber, Integer numberOfResultsPerPage) {
-    return null;
+    var pageRequest = PageRequest.of(pageNumber, numberOfResultsPerPage);
+    return bookRepositoryJPA.findAll(pageRequest)
+      .stream().map(this::buildBook).toList();
+  }
+
+  private Book buildBook(BookEntity book) {
+    return Book.load(book.getId(), book.getTitle());
   }
 }
