@@ -2,6 +2,7 @@ package me.helioalbano.biblioteca.catalog.adapter.rest.exception.handler;
 
 import lombok.extern.slf4j.Slf4j;
 import me.helioalbano.biblioteca.catalog.usecase.exceptions.AuthorNotFoundException;
+import me.helioalbano.biblioteca.catalog.usecase.exceptions.BookNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -58,6 +59,13 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler(AuthorNotFoundException.class)
   public ResponseEntity<ErrorResponse> handleAuthorNotFoundException(AuthorNotFoundException ex) {
+    return ResponseEntity.notFound()
+      .header("Content-type", "application/json")
+      .build();
+  }
+
+  @ExceptionHandler(BookNotFoundException.class)
+  public ResponseEntity<ErrorResponse> handleBookNotFoundException(BookNotFoundException e) {
     return ResponseEntity.notFound()
       .header("Content-type", "application/json")
       .build();

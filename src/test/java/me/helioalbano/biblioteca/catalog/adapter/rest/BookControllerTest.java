@@ -4,7 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import me.helioalbano.biblioteca.catalog.adapter.rest.dto.CreateBookRequest;
 import me.helioalbano.biblioteca.catalog.usecase.CreateBook;
 import me.helioalbano.biblioteca.catalog.usecase.ListBooks;
+import me.helioalbano.biblioteca.catalog.usecase.ShowBook;
 import me.helioalbano.biblioteca.catalog.usecase.dto.BookOutput;
+import me.helioalbano.biblioteca.catalog.usecase.exceptions.BookNotFoundException;
 import org.hamcrest.core.Is;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class BookControllerTest {
   private static final String RESOURCE = "/catalog/books/";
   private static final Integer VALID_BOOK_ID = 1;
+  private static final Integer INVALID_BOOK_ID = 999;
 
   @Autowired
   private MockMvc mockMvc;
@@ -37,6 +40,9 @@ class BookControllerTest {
 
   @MockBean
   private ListBooks listBooks;
+
+  @MockBean
+  private ShowBook showBook;
 
   @Test
   void createBook_success() throws Exception {
@@ -103,5 +109,39 @@ class BookControllerTest {
 
   private BookOutput buildOneBook() {
     return new BookOutput(VALID_BOOK_ID.longValue(), "Clean Code");
+  }
+
+  @Test
+  void givenAnInvalidRequestToGetOneBook_whenQueryOnBook_thenRaiseAnException() throws Exception {
+    var request = buildInvalidRequestToGetOneBook();
+
+    mockMvc.perform(request)
+      .andExpect(status().isNotFound())
+      .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+  }
+
+  private MockHttpServletRequestBuilder buildInvalidRequestToGetOneBook() {
+    when(showBook.execute(any(Long.class))).thenThrow(new BookNotFoundException());
+
+    return MockMvcRequestBuilders.get(RESOURCE + INVALID_BOOK_ID)
+      .contentType(MediaType.APPLICATION_JSON)
+      .accept(MediaType.APPLICATION_JSON);
+  }
+
+  @Test
+  void givenAValidRequestToGetOneBook_whenQueryOnBook_thenReturnOnBook() throws Exception {
+    var request = buildValidRequestToGetOneBook();
+
+    mockMvc.perform(request)
+      .andExpect(status().isOk())
+      .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+  }
+
+  private MockHttpServletRequestBuilder buildValidRequestToGetOneBook() {
+    when(showBook.execute(any(Long.class))).thenReturn(buildOneBook());
+
+    return MockMvcRequestBuilders.get(RESOURCE + INVALID_BOOK_ID)
+      .contentType(MediaType.APPLICATION_JSON)
+      .accept(MediaType.APPLICATION_JSON);
   }
 }

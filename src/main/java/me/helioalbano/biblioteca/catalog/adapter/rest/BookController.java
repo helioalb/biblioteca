@@ -4,6 +4,7 @@ import me.helioalbano.biblioteca.catalog.adapter.rest.dto.BookResponse;
 import me.helioalbano.biblioteca.catalog.adapter.rest.dto.CreateBookRequest;
 import me.helioalbano.biblioteca.catalog.usecase.CreateBook;
 import me.helioalbano.biblioteca.catalog.usecase.ListBooks;
+import me.helioalbano.biblioteca.catalog.usecase.ShowBook;
 import me.helioalbano.biblioteca.catalog.usecase.dto.BookOutput;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +18,12 @@ import java.util.List;
 class BookController {
   private final CreateBook createBook;
   private final ListBooks listBooks;
+  private final ShowBook showBook;
 
-  public BookController(CreateBook createBook, ListBooks listBooks) {
+  public BookController(CreateBook createBook, ListBooks listBooks, ShowBook showBook) {
     this.createBook = createBook;
     this.listBooks = listBooks;
+    this.showBook = showBook;
   }
 
   @PostMapping(path = "books")
@@ -43,5 +46,11 @@ class BookController {
 
   private BookResponse buildBookResponse(BookOutput book) {
     return new BookResponse(book.id(), book.title());
+  }
+
+  @GetMapping(path = "books/{bookId}", consumes = "application/json")
+  public ResponseEntity<BookResponse> show(@PathVariable Long bookId) {
+    var book = showBook.execute(bookId);
+    return ResponseEntity.ok(buildBookResponse(book));
   }
 }
