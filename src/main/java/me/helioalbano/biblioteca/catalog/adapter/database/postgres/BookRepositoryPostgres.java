@@ -31,6 +31,11 @@ public class BookRepositoryPostgres implements BookRepository {
       .stream().map(this::buildBook).toList();
   }
 
+  @Override
+  public Book findById(Long id) {
+    return null;
+  }
+
   private Book buildBook(BookEntity book) {
     return Book.load(book.getId(), book.getTitle());
   }
