@@ -33,6 +33,11 @@ public class CatalogConfig {
   }
 
   @Bean
+  public ShowBook showBook() {
+    return new ShowBook(bookRepository());
+  }
+
+  @Bean
   public AuthorRepository authorRepository() {
     return new AuthorRepositoryPostgres();
   }
