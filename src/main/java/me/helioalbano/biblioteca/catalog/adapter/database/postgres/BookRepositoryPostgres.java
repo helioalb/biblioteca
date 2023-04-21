@@ -4,6 +4,7 @@ import me.helioalbano.biblioteca.catalog.adapter.database.BookRepositoryJPA;
 import me.helioalbano.biblioteca.catalog.domain.book.Book;
 import me.helioalbano.biblioteca.catalog.repository.BookRepository;
 import me.helioalbano.biblioteca.catalog.adapter.database.postgres.entity.BookEntity;
+import me.helioalbano.biblioteca.catalog.usecase.exceptions.BookNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -33,7 +34,12 @@ public class BookRepositoryPostgres implements BookRepository {
 
   @Override
   public Book findById(Long id) {
-    return null;
+    var bookEntity = bookRepositoryJPA.findById(id);
+
+    if (bookEntity.isEmpty())
+      throw new BookNotFoundException();
+
+    return buildBook(bookEntity.get());
   }
 
   private Book buildBook(BookEntity book) {
