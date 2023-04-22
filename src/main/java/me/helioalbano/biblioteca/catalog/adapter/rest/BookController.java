@@ -2,10 +2,10 @@ package me.helioalbano.biblioteca.catalog.adapter.rest;
 
 import me.helioalbano.biblioteca.catalog.adapter.rest.dto.BookResponse;
 import me.helioalbano.biblioteca.catalog.adapter.rest.dto.CreateBookRequest;
-import me.helioalbano.biblioteca.catalog.usecase.CreateBook;
-import me.helioalbano.biblioteca.catalog.usecase.ListBooks;
-import me.helioalbano.biblioteca.catalog.usecase.ShowBook;
-import me.helioalbano.biblioteca.catalog.usecase.dto.BookOutput;
+import me.helioalbano.biblioteca.catalog.usecase.book.CreateBook;
+import me.helioalbano.biblioteca.catalog.usecase.book.ListBooks;
+import me.helioalbano.biblioteca.catalog.usecase.book.ShowBook;
+import me.helioalbano.biblioteca.catalog.usecase.book.dto.BookOutput;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

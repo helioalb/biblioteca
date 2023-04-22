@@ -1,4 +1,4 @@
-package me.helioalbano.biblioteca.catalog.usecase;
+package me.helioalbano.biblioteca.catalog.usecase.book;
 
 import me.helioalbano.biblioteca.catalog.domain.book.Book;
 import me.helioalbano.biblioteca.catalog.repository.BookRepository;

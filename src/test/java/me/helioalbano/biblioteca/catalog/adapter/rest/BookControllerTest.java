@@ -2,10 +2,10 @@ package me.helioalbano.biblioteca.catalog.adapter.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import me.helioalbano.biblioteca.catalog.adapter.rest.dto.CreateBookRequest;
-import me.helioalbano.biblioteca.catalog.usecase.CreateBook;
-import me.helioalbano.biblioteca.catalog.usecase.ListBooks;
-import me.helioalbano.biblioteca.catalog.usecase.ShowBook;
-import me.helioalbano.biblioteca.catalog.usecase.dto.BookOutput;
+import me.helioalbano.biblioteca.catalog.usecase.book.CreateBook;
+import me.helioalbano.biblioteca.catalog.usecase.book.ListBooks;
+import me.helioalbano.biblioteca.catalog.usecase.book.ShowBook;
+import me.helioalbano.biblioteca.catalog.usecase.book.dto.BookOutput;
 import me.helioalbano.biblioteca.catalog.usecase.exceptions.BookNotFoundException;
 import org.hamcrest.core.Is;
 import org.junit.jupiter.api.Test;
