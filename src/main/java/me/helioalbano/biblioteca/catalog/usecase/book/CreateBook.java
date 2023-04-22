@@ -14,7 +14,7 @@ public class CreateBook {
 
   public Long execute(CreateBookInput createBookInput) {
     Book book = Book.create(createBookInput.title());
-    return repository.create(book).getId();
+    return repository.save(book).getId();
   }
 
 }

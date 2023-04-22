@@ -19,10 +19,10 @@ public class BookRepositoryPostgres implements BookRepository {
   private ModelMapper modelMapper;
 
   @Override
-  public Book create(Book book) {
+  public Book save(Book book) {
     var bookEntity = modelMapper.map(book, BookEntity.class);
     bookEntity = bookRepositoryJPA.save(bookEntity);
-    return Book.load(bookEntity.getId(), bookEntity.getTitle());
+    return buildBook(bookEntity);
   }
 
   @Override
@@ -43,6 +43,6 @@ public class BookRepositoryPostgres implements BookRepository {
   }
 
   private Book buildBook(BookEntity book) {
-    return Book.load(book.getId(), book.getTitle());
+    return Book.load(book.getId(), book.getTitle(), book.getCreatedAt(), book.getUpdatedAt());
   }
 }

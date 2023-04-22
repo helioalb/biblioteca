@@ -1,6 +1,7 @@
 package me.helioalbano.biblioteca.catalog.adapter.database.postgres;
 
 import me.helioalbano.biblioteca.catalog.domain.book.Book;
+import me.helioalbano.biblioteca.catalog.domain.book.Title;
 import me.helioalbano.biblioteca.catalog.repository.BookRepository;
 import me.helioalbano.biblioteca.catalog.usecase.exceptions.BookNotFoundException;
 import org.junit.jupiter.api.Test;
@@ -32,8 +33,8 @@ class BookRepositoryPostgresTest {
   }
 
   private void insertTwoBooksInDatabase() {
-    repository.create(Book.create("Clean code"));
-    repository.create(Book.create("Implementando Domain-Driven Design"));
+    repository.save(Book.create("Clean code"));
+    repository.save(Book.create("Implementando Domain-Driven Design"));
   }
 
   @Test
@@ -42,5 +43,13 @@ class BookRepositoryPostgresTest {
       assertThrows(BookNotFoundException.class, () -> repository.findById(INVALID_BOOK_ID));
 
     assertNotNull(exception);
+  }
+
+  @Test
+  void givenANewTitleToABook_whenSave_thenUpdateTitle() {
+    var newTitle = "Implementando Domain-Driven Design";
+    var book = repository.save(Book.create("Domain-Driven Design"));
+    book.setTitle(new Title(newTitle));
+    assertEquals(newTitle, repository.save(book).getTitle().toString());
   }
 }

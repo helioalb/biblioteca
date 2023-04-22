@@ -1,10 +1,13 @@
 package me.helioalbano.biblioteca.catalog.adapter.rest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import me.helioalbano.biblioteca.catalog.adapter.rest.dto.CreateBookRequest;
+import me.helioalbano.biblioteca.catalog.adapter.rest.dto.UpdateBookTitleRequest;
 import me.helioalbano.biblioteca.catalog.usecase.book.CreateBook;
 import me.helioalbano.biblioteca.catalog.usecase.book.ListBooks;
 import me.helioalbano.biblioteca.catalog.usecase.book.ShowBook;
+import me.helioalbano.biblioteca.catalog.usecase.book.UpdateBookTitle;
 import me.helioalbano.biblioteca.catalog.usecase.book.dto.BookOutput;
 import me.helioalbano.biblioteca.catalog.usecase.exceptions.BookNotFoundException;
 import org.hamcrest.core.Is;
@@ -43,6 +46,9 @@ class BookControllerTest {
 
   @MockBean
   private ShowBook showBook;
+
+  @MockBean
+  private UpdateBookTitle updateBookTitle;
 
   @Test
   void createBook_success() throws Exception {
@@ -143,5 +149,33 @@ class BookControllerTest {
     return MockMvcRequestBuilders.get(RESOURCE + INVALID_BOOK_ID)
       .contentType(MediaType.APPLICATION_JSON)
       .accept(MediaType.APPLICATION_JSON);
+  }
+
+  @Test
+  void givenANewBookTitle_whenUpdating_thenReturnBookWithNewTitle() throws Exception {
+    var request = buildRequestWithNewBookTitle();
+
+    mockMvc.perform(request)
+      .andExpect(status().isOk())
+      .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+      .andExpect(jsonPath("$.id").value(VALID_BOOK_ID))
+      .andExpect(jsonPath("$.title").value("New title"));
+  }
+
+  private MockHttpServletRequestBuilder buildRequestWithNewBookTitle() throws JsonProcessingException {
+    when(updateBookTitle.execute(VALID_BOOK_ID.longValue(), "New title"))
+      .thenReturn(buildBookWithUpdatedTitle());
+
+    var request = new UpdateBookTitleRequest();
+    request.title = "New title";
+
+    return MockMvcRequestBuilders.patch(RESOURCE + VALID_BOOK_ID)
+      .contentType(MediaType.APPLICATION_JSON)
+      .accept(MediaType.APPLICATION_JSON)
+      .content(mapper.writeValueAsString(request));
+  }
+
+  private BookOutput buildBookWithUpdatedTitle() {
+    return new BookOutput(VALID_BOOK_ID.longValue(), "New title");
   }
 }
