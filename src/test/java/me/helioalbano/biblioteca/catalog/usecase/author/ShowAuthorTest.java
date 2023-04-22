@@ -1,8 +1,8 @@
-package me.helioalbano.biblioteca.catalog.usecase;
+package me.helioalbano.biblioteca.catalog.usecase.author;
 
 import me.helioalbano.biblioteca.catalog.domain.author.Author;
 import me.helioalbano.biblioteca.catalog.repository.AuthorRepository;
-import me.helioalbano.biblioteca.catalog.usecase.dto.AuthorOutput;
+import me.helioalbano.biblioteca.catalog.usecase.author.dto.AuthorOutput;
 import me.helioalbano.biblioteca.catalog.usecase.exceptions.AuthorNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

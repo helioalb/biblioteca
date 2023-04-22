@@ -1,7 +1,7 @@
-package me.helioalbano.biblioteca.catalog.usecase;
+package me.helioalbano.biblioteca.catalog.usecase.book;
 
 import me.helioalbano.biblioteca.catalog.repository.BookRepository;
-import me.helioalbano.biblioteca.catalog.usecase.dto.BookOutput;
+import me.helioalbano.biblioteca.catalog.usecase.book.dto.BookOutput;
 
 public class ShowBook {
   private final BookRepository repository;

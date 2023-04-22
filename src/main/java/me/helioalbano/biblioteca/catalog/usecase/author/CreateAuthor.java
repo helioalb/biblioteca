@@ -1,8 +1,8 @@
-package me.helioalbano.biblioteca.catalog.usecase;
+package me.helioalbano.biblioteca.catalog.usecase.author;
 
 import me.helioalbano.biblioteca.catalog.domain.author.Author;
 import me.helioalbano.biblioteca.catalog.repository.AuthorRepository;
-import me.helioalbano.biblioteca.catalog.usecase.dto.CreateAuthorInput;
+import me.helioalbano.biblioteca.catalog.usecase.author.dto.CreateAuthorInput;
 
 public class CreateAuthor {
   private final AuthorRepository repository;

@@ -2,10 +2,10 @@ package me.helioalbano.biblioteca.catalog.adapter.rest;
 
 import me.helioalbano.biblioteca.catalog.adapter.rest.dto.AuthorResponse;
 import me.helioalbano.biblioteca.catalog.adapter.rest.dto.CreateAuthorRequest;
-import me.helioalbano.biblioteca.catalog.usecase.CreateAuthor;
-import me.helioalbano.biblioteca.catalog.usecase.ListAuthors;
-import me.helioalbano.biblioteca.catalog.usecase.ShowAuthor;
-import me.helioalbano.biblioteca.catalog.usecase.dto.AuthorOutput;
+import me.helioalbano.biblioteca.catalog.usecase.author.CreateAuthor;
+import me.helioalbano.biblioteca.catalog.usecase.author.ListAuthors;
+import me.helioalbano.biblioteca.catalog.usecase.author.ShowAuthor;
+import me.helioalbano.biblioteca.catalog.usecase.author.dto.AuthorOutput;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

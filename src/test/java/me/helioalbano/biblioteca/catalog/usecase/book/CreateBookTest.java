@@ -1,8 +1,8 @@
-package me.helioalbano.biblioteca.catalog.usecase;
+package me.helioalbano.biblioteca.catalog.usecase.book;
 
 import me.helioalbano.biblioteca.catalog.domain.book.Book;
 import me.helioalbano.biblioteca.catalog.repository.BookRepository;
-import me.helioalbano.biblioteca.catalog.usecase.dto.CreateBookInput;
+import me.helioalbano.biblioteca.catalog.usecase.book.dto.CreateBookInput;
 import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.*;

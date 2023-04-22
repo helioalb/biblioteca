@@ -4,7 +4,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
-import me.helioalbano.biblioteca.catalog.usecase.dto.CreateAuthorInput;
+import me.helioalbano.biblioteca.catalog.usecase.author.dto.CreateAuthorInput;
 
 @Data
 public class CreateAuthorRequest {
