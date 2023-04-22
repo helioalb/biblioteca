@@ -2,6 +2,7 @@ package me.helioalbano.biblioteca.catalog.usecase.book;
 
 import me.helioalbano.biblioteca.catalog.domain.book.Title;
 import me.helioalbano.biblioteca.catalog.repository.BookRepository;
+import me.helioalbano.biblioteca.catalog.usecase.book.dto.BookOutput;
 
 public class UpdateBookTitle {
 
@@ -11,9 +12,11 @@ public class UpdateBookTitle {
     this.repository = repository;
   }
 
-  public String execute(Long id, String newBookTitle) {
+  public BookOutput execute(Long id, String newBookTitle) {
     var book = repository.findById(id);
     book.setTitle(new Title(newBookTitle));
-    return repository.save(book).getTitle().toString();
+
+    var updatedBook = repository.save(book);
+    return new BookOutput(updatedBook.getId(), updatedBook.getTitle().toString());
   }
 }

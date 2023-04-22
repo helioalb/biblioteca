@@ -36,7 +36,7 @@ class UpdateBookTitleTest {
 
     // After
     var newBookTitle = updateBookTitle.execute(BOOK_ID, NEW_BOOK_TITLE);
-    assertEquals(NEW_BOOK_TITLE, newBookTitle);
+    assertEquals(NEW_BOOK_TITLE, newBookTitle.title());
   }
 
   private Book buildBookWithOldTitle() {

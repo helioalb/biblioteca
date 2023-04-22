@@ -2,9 +2,11 @@ package me.helioalbano.biblioteca.catalog.adapter.rest;
 
 import me.helioalbano.biblioteca.catalog.adapter.rest.dto.BookResponse;
 import me.helioalbano.biblioteca.catalog.adapter.rest.dto.CreateBookRequest;
+import me.helioalbano.biblioteca.catalog.adapter.rest.dto.UpdateBookTitleRequest;
 import me.helioalbano.biblioteca.catalog.usecase.book.CreateBook;
 import me.helioalbano.biblioteca.catalog.usecase.book.ListBooks;
 import me.helioalbano.biblioteca.catalog.usecase.book.ShowBook;
+import me.helioalbano.biblioteca.catalog.usecase.book.UpdateBookTitle;
 import me.helioalbano.biblioteca.catalog.usecase.book.dto.BookOutput;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +21,14 @@ class BookController {
   private final CreateBook createBook;
   private final ListBooks listBooks;
   private final ShowBook showBook;
+  private final UpdateBookTitle updateBookTitle;
 
-  public BookController(CreateBook createBook, ListBooks listBooks, ShowBook showBook) {
+  public BookController(CreateBook createBook, ListBooks listBooks,
+                        ShowBook showBook, UpdateBookTitle updateBookTitle) {
     this.createBook = createBook;
     this.listBooks = listBooks;
     this.showBook = showBook;
+    this.updateBookTitle = updateBookTitle;
   }
 
   @PostMapping(path = "books")
@@ -51,6 +56,13 @@ class BookController {
   @GetMapping(path = "books/{bookId}", consumes = "application/json")
   public ResponseEntity<BookResponse> show(@PathVariable Long bookId) {
     var book = showBook.execute(bookId);
+    return ResponseEntity.ok(buildBookResponse(book));
+  }
+
+  @PatchMapping(path = "books/{bookId}", consumes = "application/json")
+  public ResponseEntity<BookResponse> update(@PathVariable Long bookId,
+                                             @Valid @RequestBody UpdateBookTitleRequest field) {
+    var book = updateBookTitle.execute(bookId, field.title);
     return ResponseEntity.ok(buildBookResponse(book));
   }
 }

@@ -10,6 +10,7 @@ import me.helioalbano.biblioteca.catalog.usecase.author.ShowAuthor;
 import me.helioalbano.biblioteca.catalog.usecase.book.CreateBook;
 import me.helioalbano.biblioteca.catalog.usecase.book.ListBooks;
 import me.helioalbano.biblioteca.catalog.usecase.book.ShowBook;
+import me.helioalbano.biblioteca.catalog.usecase.book.UpdateBookTitle;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,6 +41,11 @@ public class CatalogConfig {
   @Bean
   public ShowBook showBook() {
     return new ShowBook(bookRepository());
+  }
+
+  @Bean
+  public UpdateBookTitle updateBookTitle() {
+    return new UpdateBookTitle(bookRepository());
   }
 
   @Bean
