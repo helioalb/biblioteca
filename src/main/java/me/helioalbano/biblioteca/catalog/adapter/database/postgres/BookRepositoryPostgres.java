@@ -42,6 +42,11 @@ public class BookRepositoryPostgres implements BookRepository {
     return buildBook(bookEntity.get());
   }
 
+  @Override
+  public Book update(Book book) {
+    return null;
+  }
+
   private Book buildBook(BookEntity book) {
     return Book.load(book.getId(), book.getTitle());
   }

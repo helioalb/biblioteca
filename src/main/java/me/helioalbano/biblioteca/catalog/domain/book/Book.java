@@ -23,7 +23,7 @@ public class Book {
     setTitle(title);
   }
 
-  private void setTitle(Title title) {
+  public void setTitle(Title title) {
     if (title == null)
       throw new IllegalArgumentException("book.title.null");
 
