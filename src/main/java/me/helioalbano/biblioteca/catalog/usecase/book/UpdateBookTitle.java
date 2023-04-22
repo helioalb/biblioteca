@@ -14,6 +14,6 @@ public class UpdateBookTitle {
   public String execute(Long id, String newBookTitle) {
     var book = repository.findById(id);
     book.setTitle(new Title(newBookTitle));
-    return repository.update(book).getTitle().toString();
+    return repository.save(book).getTitle().toString();
   }
 }

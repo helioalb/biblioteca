@@ -26,7 +26,7 @@ class UpdateBookTitleTest {
     Mockito.when(repository.findById(BOOK_ID))
         .thenReturn(buildBookWithOldTitle());
 
-    Mockito.when(repository.update(Mockito.any(Book.class)))
+    Mockito.when(repository.save(Mockito.any(Book.class)))
       .thenReturn(buildBookWithNewTitle());
 
     // Before
