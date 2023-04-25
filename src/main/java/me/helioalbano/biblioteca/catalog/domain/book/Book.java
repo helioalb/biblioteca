@@ -1,16 +1,19 @@
 package me.helioalbano.biblioteca.catalog.domain.book;
 
+import me.helioalbano.biblioteca.catalog.domain.author.Author;
+
 import java.time.LocalDateTime;
 
 public class Book {
 
   private final Long id;
   private Title title;
+  private Authors authors;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
 
   public static Book create(String title) {
-    return new Book(new Title(title));
+    return new Book(new Title(title), new Authors());
   }
 
   public static Book load(long id, String title) {
@@ -21,9 +24,10 @@ public class Book {
     return new Book(id, new Title(title), createdAt, updatedAt);
   }
 
-  private Book(Title title) {
+  private Book(Title title, Authors authors) {
     this.id = null;
     setTitle(title);
+    this.authors = authors;
   }
 
   private Book(Long id, Title title) {
@@ -59,5 +63,13 @@ public class Book {
 
   public LocalDateTime getUpdatedAt() {
     return updatedAt;
+  }
+
+  public void addAuthor(Author author) {
+    authors.add(author);
+  }
+
+  public Authors getAuthors() {
+    return authors;
   }
 }
