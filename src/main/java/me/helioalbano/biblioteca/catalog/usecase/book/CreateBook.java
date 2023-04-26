@@ -26,10 +26,8 @@ public class CreateBook {
 
   private Book addAuthorsToBook(Set<Long> authorsIds, Book book) {
     if (authorsIds != null)
-      for (Long authorId : authorsIds) {
-        var author = authorRepository.findById(authorId);
-        book.addAuthor(author);
-      }
+      for (Long authorId : authorsIds)
+        book.addAuthor(authorRepository.findById(authorId));
 
     return book;
   }
