@@ -1,4 +1,6 @@
 package me.helioalbano.biblioteca.catalog.usecase.book.dto;
 
-public record CreateBookInput(String title) {
+import java.util.Set;
+
+public record CreateBookInput(String title, Set<Long> authorsIds) {
 }

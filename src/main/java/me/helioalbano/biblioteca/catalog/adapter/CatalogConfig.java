@@ -30,7 +30,7 @@ public class CatalogConfig {
 
   @Bean
   public CreateBook createBook() {
-    return new CreateBook(bookRepository());
+    return new CreateBook(bookRepository(), authorRepository());
   }
 
   @Bean

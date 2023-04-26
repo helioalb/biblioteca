@@ -1,10 +1,9 @@
 package me.helioalbano.biblioteca.catalog.domain.book;
 
-import me.helioalbano.biblioteca.catalog.domain.book.Book;
+import me.helioalbano.biblioteca.catalog.domain.author.Author;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BookTest {
 
@@ -20,5 +19,16 @@ public class BookTest {
     var book = Book.load(1L, "O Programador Pragmático");
 
     assertEquals("O Programador Pragmático", book.getTitle().toString());
+  }
+
+  @Test
+  void givenAnAuthor_whenCallAddAuthor_thenItShouldBeAddedToBook() {
+    var author = Author.create("Vaughn Vernon");
+    var book = Book.create("Implementing Domain-Driven Design");
+
+    assertEquals(0, book.getAuthors().count());
+
+    book.addAuthor(author);
+    assertEquals(1, book.getAuthors().count());
   }
 }
